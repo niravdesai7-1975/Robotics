@@ -85,6 +85,29 @@
             }
         }
         
+        .top-center-text {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            z-index: 100;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+            text-align: left;
+            padding: 10px 20px;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 8px;
+        }
+        
+        .top-center-text p {
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
         .bottom-left-text {
             position: absolute;
             bottom: 40px;
@@ -109,11 +132,17 @@
             text-align: left;
         }
         
-        .bottom-left-text p:not(:first-child) {
-            margin-top: 0.75rem;
-        }
-        
         @media (max-width: 768px) {
+            .top-center-text {
+                top: 30px;
+                left: 20px;
+                padding: 8px 16px;
+            }
+            
+            .top-center-text p {
+                font-size: 0.85rem;
+            }
+            
             .bottom-left-text {
                 bottom: 80px;
                 left: 15px;
@@ -128,13 +157,20 @@
                 font-size: 0.9rem;
                 line-height: 1.6;
             }
-            
-            .bottom-left-text p:not(:first-child) {
-                margin-top: 0.6rem;
-            }
         }
         
         @media (max-width: 480px) {
+            .top-center-text {
+                top: 20px;
+                left: 10px;
+                padding: 6px 12px;
+                max-width: calc(100% - 20px);
+            }
+            
+            .top-center-text p {
+                font-size: 0.8rem;
+            }
+            
             .bottom-left-text {
                 bottom: 70px;
                 left: 10px;
@@ -149,10 +185,6 @@
                 font-size: 0.9rem;
                 line-height: 1.6;
             }
-            
-            .bottom-left-text p:not(:first-child) {
-                margin-top: 0.5rem;
-            }
         }
     </style>
 </head>
@@ -162,6 +194,9 @@
             <source src="Running Video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <div class="top-center-text">
+            <p>Driving the future of human wellness</p>
+        </div>
         <div class="text-overlay">
             <h1 id="text1" class="active">I want to live for 100+ years</h1>
             <h1 id="text2">I want to be active play tennis and run at 90</h1>
@@ -170,7 +205,6 @@
         </div>
         <div class="bottom-left-text">
             <p>XMachina is an AI Operating System for Robots and Virtual Reality</p>
-            <p>Driving the future of human wellness</p>
         </div>
         </div>
     
