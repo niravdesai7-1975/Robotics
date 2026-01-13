@@ -172,8 +172,8 @@
 </head>
 <body>
     <div class="video-container">
-        <video autoplay muted loop playsinline>
-            <source src="Running Video.mp4" type="video/mp4">
+        <video id="mainVideo" autoplay muted playsinline>
+            <source id="videoSource" src="XMachina Logo Video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div class="logo-container">
@@ -218,6 +218,22 @@
         setTimeout(() => {
             setInterval(showNextText, texts[0].delay);
         }, texts[0].delay);
+        
+        // Handle video sequence: Logo video first, then Running video loop
+        const video = document.getElementById('mainVideo');
+        const videoSource = document.getElementById('videoSource');
+        let hasPlayedLogoVideo = false;
+        
+        video.addEventListener('ended', function() {
+            if (!hasPlayedLogoVideo) {
+                // Logo video finished, switch to Running video
+                hasPlayedLogoVideo = true;
+                videoSource.src = 'Running Video.mp4';
+                video.load();
+                video.loop = true;
+                video.play();
+            }
+        });
     </script>
 </body>
 </html>
