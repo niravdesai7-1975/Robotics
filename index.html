@@ -89,12 +89,16 @@
             position: absolute;
             bottom: 40px;
             left: 40px;
-            z-index: 20;
+            z-index: 100;
             color: white;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
             max-width: 600px;
-            padding: 8px;
+            padding: 12px 16px;
             pointer-events: none;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 8px;
         }
         
         .bottom-left-text p {
@@ -111,29 +115,31 @@
         
         @media (max-width: 768px) {
             .bottom-left-text {
-                bottom: 30px;
-                left: 20px;
-                right: 20px;
-                max-width: calc(100% - 40px);
-                padding: 6px;
+                bottom: 60px;
+                left: 15px;
+                right: 15px;
+                max-width: none;
+                width: calc(100% - 30px);
+                padding: 10px 12px;
             }
             
             .bottom-left-text p {
-                font-size: 0.85rem;
+                font-size: 0.9rem;
             }
         }
         
         @media (max-width: 480px) {
             .bottom-left-text {
-                bottom: 20px;
-                left: 15px;
-                right: 15px;
-                max-width: calc(100% - 30px);
-                padding: 4px;
+                bottom: 50px;
+                left: 10px;
+                right: 10px;
+                max-width: none;
+                width: calc(100% - 20px);
+                padding: 8px 10px;
             }
             
             .bottom-left-text p {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
                 line-height: 1.5;
             }
         }
