@@ -46,6 +46,7 @@
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
             width: 90%;
             max-width: 1200px;
+            min-height: 80px;
         }
         
         .text-overlay h1 {
@@ -53,6 +54,15 @@
             font-weight: 900;
             line-height: 1.2;
             margin: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            position: absolute;
+            width: 100%;
+            left: 0;
+        }
+        
+        .text-overlay h1.active {
+            opacity: 1;
         }
         
         @media (max-width: 768px) {
@@ -125,11 +135,43 @@
             Your browser does not support the video tag.
         </video>
         <div class="text-overlay">
-            <h1>The Future of Robotics Virtual Reality is here</h1>
+            <h1 id="text1" class="active">I want to live for 100+ years</h1>
+            <h1 id="text2">I want to be active play tennis and run at 90</h1>
+            <h1 id="text3">I want to look beautiful with age</h1>
+            <h1 id="text4">I want my kids to be active and stop playing roblox</h1>
         </div>
         <div class="bottom-left-text">
             <p>XMachina is an AI Operating System for Robots and Virtual Reality</p>
         </div>
     </div>
+    
+    <script>
+        const texts = [
+            { id: 'text1', delay: 3000 },
+            { id: 'text2', delay: 3000 },
+            { id: 'text3', delay: 3000 },
+            { id: 'text4', delay: 3000 }
+        ];
+        
+        let currentIndex = 0;
+        
+        function showNextText() {
+            // Hide current text
+            const currentText = document.getElementById(texts[currentIndex].id);
+            currentText.classList.remove('active');
+            
+            // Move to next text
+            currentIndex = (currentIndex + 1) % texts.length;
+            
+            // Show next text
+            const nextText = document.getElementById(texts[currentIndex].id);
+            nextText.classList.add('active');
+        }
+        
+        // Start the rotation after initial delay
+        setTimeout(() => {
+            setInterval(showNextText, texts[0].delay);
+        }, texts[0].delay);
+    </script>
 </body>
 </html>
