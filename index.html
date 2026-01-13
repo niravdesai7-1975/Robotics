@@ -66,6 +66,48 @@
                 font-size: 2rem;
             }
         }
+        
+        .bottom-left-text {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            z-index: 10;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            max-width: 600px;
+        }
+        
+        .bottom-left-text p {
+            font-size: 1.25rem;
+            font-weight: 400;
+            line-height: 1.6;
+            margin: 0;
+            text-align: left;
+        }
+        
+        @media (max-width: 768px) {
+            .bottom-left-text {
+                bottom: 30px;
+                left: 30px;
+                max-width: 80%;
+            }
+            
+            .bottom-left-text p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .bottom-left-text {
+                bottom: 20px;
+                left: 20px;
+                max-width: 85%;
+            }
+            
+            .bottom-left-text p {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -76,6 +118,9 @@
         </video>
         <div class="text-overlay">
             <h1>The Future of Robotics Virtual Reality is here</h1>
+        </div>
+        <div class="bottom-left-text">
+            <p>XMachina is an AI Operating System for Robots and Virtual Reality</p>
         </div>
     </div>
 </body>
