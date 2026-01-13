@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skild AI - Any robot. Any task. One brain.</title>
+    <title>The Future of Robotics Virtual Reality</title>
     
     <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,201 +12,71 @@
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-gray': '#333333',
-                        'darker-gray': '#444444',
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+        }
+        
+        .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            width: 90%;
+            max-width: 1200px;
+        }
+        
+        .text-overlay h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .text-overlay h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .text-overlay h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
-<body class="bg-white text-dark-gray">
-    
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center px-4 py-32">
-        <div class="text-center max-w-5xl mx-auto" data-aos="fade-up">
-            <h1 class="text-7xl md:text-8xl lg:text-9xl font-black text-black leading-tight mb-8">
-                Any robot.
-            </h1>
-            <h1 class="text-7xl md:text-8xl lg:text-9xl font-black text-black leading-tight mb-8">
-                Any task.
-            </h1>
-            <h1 class="text-7xl md:text-8xl lg:text-9xl font-black text-black leading-tight">
-                One brain.
-            </h1>
+<body>
+    <div class="video-container">
+        <video autoplay muted loop playsinline>
+            <source src="Running Video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="text-overlay">
+            <h1>The Future of Robotics Virtual Reality is here</h1>
         </div>
-    </section>
-    
-    <!-- Overview Section -->
-    <section class="py-32 px-4">
-        <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-            <h2 class="text-2xl md:text-3xl font-semibold text-black mb-12">
-                Bringing AI into the physical world
-            </h2>
-            <p class="text-lg md:text-xl text-darker-gray leading-relaxed">
-                Most AI today exists solely in cyberspace. Physical reality is far more information rich, and automating physical tasks offers immense returns. We are building AI that will interact with and affect change in the real world.
-            </p>
-        </div>
-    </section>
-    
-    <!-- Our Thesis Section -->
-    <section class="py-32 px-4">
-        <div class="max-w-4xl mx-auto" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-bold text-black mb-12 text-center">
-                Our Thesis
-            </h2>
-            <div class="text-center mb-12">
-                <p class="text-2xl md:text-3xl font-bold italic text-black mb-12">
-                    Physical AI should be omni-bodied.
-                </p>
-            </div>
-            <div class="space-y-6 text-lg md:text-xl text-darker-gray leading-relaxed">
-                <p>
-                    An AI that truly understands the physical world should not be limited by robot or task type.
-                </p>
-                <p>
-                    At Skild, we believe in tackling the robotics problem in its full generality.
-                </p>
-                <p>
-                    We are building a unified, omni-bodied brain to control any robot for any task.
-                </p>
-                <p>
-                    To keep us grounded on our journey, we are building robot applications that deliver tangible, real-world value.
-                </p>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Security/Inspection Robot Platform Section -->
-    <section class="py-32 px-4">
-        <div class="max-w-5xl mx-auto" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-bold text-black mb-12 text-center">
-                Security/Inspection Robot Platform
-            </h2>
-            <p class="text-lg md:text-xl text-darker-gray leading-relaxed text-center mb-8">
-                The Skild Brain enables robots to navigate unstructured, dangerous environments, freeing humans from the burden of constant, manual inspections.
-            </p>
-            <div class="w-full max-w-5xl mx-auto aspect-video bg-gray-100 border-2 border-dashed border-gray-300 rounded-2xl flex items-center justify-center my-16">
-                <span class="text-gray-500 text-xl md:text-2xl text-center px-8">
-                    Security/Inspection Robot Demo<br>
-                    (16:9 Video Placeholder – e.g., 1280x720 or larger)
-                </span>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Mobile Manipulation Platform Section -->
-    <section class="py-32 px-4">
-        <div class="max-w-5xl mx-auto" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-bold text-black mb-12 text-center">
-                Mobile Manipulation Platform
-            </h2>
-            <p class="text-lg md:text-xl text-darker-gray leading-relaxed text-center mb-8">
-                Our AI can execute low-level skills like grasping, handover, and navigation on mobile platforms. These skills are abstracted away using an API call, allowing users to build applications without worrying about details of the unstructured, messy real world.
-            </p>
-            <div class="w-full max-w-5xl mx-auto aspect-video bg-gray-100 border-2 border-dashed border-gray-300 rounded-2xl flex items-center justify-center my-16">
-                <span class="text-gray-500 text-xl md:text-2xl text-center px-8">
-                    Mobile Manipulation Robot Demo<br>
-                    (16:9 Video Placeholder)
-                </span>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Autonomous Packing Section -->
-    <section class="py-32 px-4">
-        <div class="max-w-5xl mx-auto" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-bold text-black mb-12 text-center">
-                Autonomous Packing
-            </h2>
-            <p class="text-lg md:text-xl text-darker-gray leading-relaxed text-center mb-8">
-                Our AI can learn highly precise and dexterous skills. We are using these to automate repetitive tasks.
-            </p>
-            <div class="w-full max-w-5xl mx-auto aspect-video bg-gray-100 border-2 border-dashed border-gray-300 rounded-2xl flex items-center justify-center my-16">
-                <span class="text-gray-500 text-xl md:text-2xl text-center px-8">
-                    Autonomous Packing Demo<br>
-                    (16:9 Video Placeholder)
-                </span>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Skild in Action Section -->
-    <section class="py-32 px-4">
-        <div class="max-w-6xl mx-auto" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-bold text-black mb-12 text-center">
-                Skild in Action
-            </h2>
-            <p class="text-lg md:text-xl text-darker-gray leading-relaxed text-center mb-8">
-                Embodied AI Mobile Manipulation Platform. Develop AI algorithms and apps for robots. SKILD AI's platform simplifies robotics. Create fun applications with Skild's Momp. Join the waitlist for Pre-orders.
-            </p>
-            <div class="w-full max-w-6xl mx-auto h-[70vh] md:h-[80vh] min-h-[500px] bg-gray-100 border-2 border-dashed border-gray-300 rounded-2xl flex items-center justify-center my-20">
-                <span class="text-gray-500 text-2xl md:text-3xl text-center px-8">
-                    Skild in Action – Main Demo Video<br>
-                    (Large Responsive Placeholder)
-                </span>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Funding Partners Section -->
-    <section class="py-32 px-4">
-        <div class="max-w-6xl mx-auto" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-bold text-black mb-6 text-center">
-                Our Valued Funding Partners.
-            </h2>
-            <p class="text-lg md:text-xl text-darker-gray leading-relaxed text-center mb-12">
-                We are supported in our mission and vision by our amazing partners.
-            </p>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-12 my-20">
-                <div class="w-48 h-24 bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center mx-auto">
-                    <span class="text-gray-500 text-sm">Partner Logo</span>
-                </div>
-                <div class="w-48 h-24 bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center mx-auto">
-                    <span class="text-gray-500 text-sm">Partner Logo</span>
-                </div>
-                <div class="w-48 h-24 bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center mx-auto">
-                    <span class="text-gray-500 text-sm">Partner Logo</span>
-                </div>
-                <div class="w-48 h-24 bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center mx-auto">
-                    <span class="text-gray-500 text-sm">Partner Logo</span>
-                </div>
-                <div class="w-48 h-24 bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center mx-auto">
-                    <span class="text-gray-500 text-sm">Partner Logo</span>
-                </div>
-                <div class="w-48 h-24 bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center mx-auto">
-                    <span class="text-gray-500 text-sm">Partner Logo</span>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Initialize AOS -->
-    <script>
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            offset: 100
-        });
-    </script>
-    
+    </div>
 </body>
 </html>
-
