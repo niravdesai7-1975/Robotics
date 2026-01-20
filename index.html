@@ -13,11 +13,18 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
+            overflow: hidden;
+        }
+        
+        body.modal-open {
             overflow: hidden;
         }
         
@@ -87,7 +94,7 @@
         
         .top-center-text {
             position: absolute;
-            top: 40px;
+            top: 100px;
             left: 40px;
             z-index: 100;
             color: white;
@@ -128,7 +135,7 @@
         
         @media (max-width: 768px) {
             .top-center-text {
-                top: 30px;
+                top: 90px;
                 left: 20px;
             }
             
@@ -156,7 +163,7 @@
         
         @media (max-width: 480px) {
             .top-center-text {
-                top: 20px;
+                top: 80px;
                 left: 10px;
                 max-width: calc(100% - 20px);
             }
@@ -182,6 +189,246 @@
                 margin-top: 0.3rem;
             }
         }
+        
+        .navigation-menu {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 200;
+            padding: 30px 40px;
+            pointer-events: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links li {
+            margin: 0;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            .navigation-menu {
+                padding: 20px 30px;
+            }
+            
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navigation-menu {
+                padding: 15px 20px;
+            }
+            
+            .nav-links a {
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* Contact Modal Styles */
+        .contact-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+            justify-content: flex-end;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .contact-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .contact-modal {
+            background-color: #f5f5f0;
+            width: 100%;
+            max-width: 500px;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 60px 40px 40px;
+            position: relative;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-modal-overlay.active .contact-modal {
+            transform: translateX(0);
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #000;
+            line-height: 1;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+        }
+        
+        .close-button:hover {
+            opacity: 0.6;
+        }
+        
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #000;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+        }
+        
+        .contact-subtitle {
+            font-size: 1rem;
+            color: #000;
+            margin: 0 0 40px 0;
+            font-weight: 400;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group.full-width {
+            flex: 1 1 100%;
+        }
+        
+        .form-group label {
+            font-size: 0.875rem;
+            color: #000;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background-color: #fff;
+            color: #000;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #666;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #999;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-button {
+            background-color: #8b7fa8;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .submit-button:hover {
+            background-color: #7a6d96;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-modal {
+                max-width: 100%;
+                padding: 50px 30px 30px;
+            }
+            
+            .contact-title {
+                font-size: 2rem;
+            }
+            
+            .close-button {
+                top: 20px;
+                right: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .contact-modal {
+                padding: 40px 20px 20px;
+            }
+            
+            .contact-title {
+                font-size: 1.75rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .close-button {
+                top: 15px;
+                right: 20px;
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -190,6 +437,11 @@
             <source src="Running Video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <nav class="navigation-menu">
+            <ul class="nav-links">
+                <li><a href="#" id="company-link">COMPANY</a></li>
+            </ul>
+        </nav>
         <div class="top-center-text">
             <p>Driving the future of human wellness</p>
         </div>
@@ -204,6 +456,40 @@
             <p>For Robots and Wearables</p>
         </div>
         </div>
+    
+    <!-- Contact Modal -->
+    <div class="contact-modal-overlay" id="contact-modal-overlay">
+        <div class="contact-modal">
+            <button class="close-button" id="close-modal">&times;</button>
+            <h2 class="contact-title">WHAT'S ON YOUR MIND?</h2>
+            <p class="contact-subtitle">We'll get back to you as soon as possible.</p>
+            <form class="contact-form" id="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name*</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name*</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="email">Email*</label>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group full-width">
+                    <label for="subject">Subject*</label>
+                    <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                </div>
+                <div class="form-group full-width">
+                    <label for="message">Message*</label>
+                    <textarea id="message" name="message" placeholder="Message" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Submit</button>
+            </form>
+        </div>
+    </div>
     
     <script>
         const texts = [
@@ -232,6 +518,179 @@
         setTimeout(() => {
             setInterval(showNextText, texts[0].delay);
         }, texts[0].delay);
+        
+        // Contact Modal Functionality
+        const companyLink = document.getElementById('company-link');
+        const contactModalOverlay = document.getElementById('contact-modal-overlay');
+        const closeModal = document.getElementById('close-modal');
+        const contactForm = document.getElementById('contact-form');
+        
+        // Open modal when COMPANY is clicked
+        companyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            contactModalOverlay.classList.add('active');
+            document.body.classList.add('modal-open');
+        });
+        
+        // Close modal when X is clicked
+        closeModal.addEventListener('click', () => {
+            contactModalOverlay.classList.remove('active');
+            document.body.classList.remove('modal-open');
+        });
+        
+        // Close modal when clicking outside the form
+        contactModalOverlay.addEventListener('click', (e) => {
+            if (e.target === contactModalOverlay) {
+                contactModalOverlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            }
+        });
+        
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("jMoAcPJdoXp2RN656");
+        })();
+        
+        // Handle form submission
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                subject: document.getElementById('subject').value.trim(),
+                message: document.getElementById('message').value.trim()
+            };
+            
+            // Validate form data
+            if (!formData.firstName || !formData.lastName || !formData.email || !formData.subject || !formData.message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Prepare email parameters
+            const emailParams = {
+                from_name: `${formData.firstName} ${formData.lastName}`,
+                from_email: formData.email,
+                subject: formData.subject,
+                message: formData.message,
+                reply_to: formData.email
+            };
+            
+            console.log('Sending email with params:', emailParams);
+            console.log('Service ID: service_y3e7g69');
+            console.log('Notification Template ID: template_erq64ic');
+            console.log('Auto-Reply Template ID: template_xa5uen5');
+            console.log('Full emailParams:', JSON.stringify(emailParams, null, 2));
+            
+            // Send notification email to you (form data)
+            emailjs.send(
+                'service_y3e7g69',
+                'template_erq64ic',
+                emailParams
+            )
+            .then((response) => {
+                console.log('✅ Notification email sent successfully!');
+                console.log('Response status:', response.status);
+                console.log('Response text:', response.text);
+                
+                // Send auto-reply to form submitter (confirmation message)
+                console.log('Sending auto-reply to:', emailParams.from_email);
+                console.log('Auto-reply params:', {
+                    to_email: emailParams.from_email,
+                    from_name: emailParams.from_name,
+                    from_email: emailParams.from_email
+                });
+                
+                return emailjs.send(
+                    'service_y3e7g69',
+                    'template_xa5uen5',
+                    {
+                        to_email: emailParams.from_email, // Explicitly set recipient
+                        from_name: emailParams.from_name,
+                        from_email: emailParams.from_email
+                    }
+                );
+            })
+            .then((response) => {
+                console.log('✅ Auto-reply email sent successfully!');
+                console.log('Response status:', response.status);
+                console.log('Response text:', response.text);
+                console.log('Check EmailJS dashboard logs: https://dashboard.emailjs.com/admin/log');
+                
+                alert('Thank you for your message! We\'ll get back to you soon.');
+                contactForm.reset();
+                contactModalOverlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            })
+            .catch((error) => {
+                console.error('❌ Email sending failed!');
+                console.error('Full error object:', error);
+                console.error('Error status:', error.status);
+                console.error('Error text:', error.text);
+                console.error('Error message:', error.message);
+                console.error('Service ID used: service_y3e7g69');
+                console.error('Notification Template ID: template_erq64ic');
+                console.error('Auto-Reply Template ID: template_xa5uen5');
+                console.error('Parameters sent:', JSON.stringify(emailParams, null, 2));
+                
+                let errorMessage = 'Sorry, there was an error sending your message.\n\n';
+                if (error.status) {
+                    errorMessage += `Error Code: ${error.status}\n`;
+                }
+                if (error.text) {
+                    errorMessage += `Error: ${error.text}\n\n`;
+                } else if (error.message) {
+                    errorMessage += `Error: ${error.message}\n\n`;
+                }
+                errorMessage += 'Please check:\n';
+                errorMessage += '1. Browser console (F12) for detailed error\n';
+                errorMessage += '2. EmailJS dashboard logs\n';
+                errorMessage += '3. Template ID: template_erq64ic\n';
+                errorMessage += '4. Service ID: service_y3e7g69';
+                
+                alert(errorMessage);
+            })
+            .catch((error) => {
+                console.error('Email sending failed:', error);
+                console.error('Full error object:', JSON.stringify(error, null, 2));
+                console.error('Error details:', {
+                    status: error.status,
+                    text: error.text,
+                    service: 'service_y3e7g69',
+                    template: 'template_erq64ic',
+                    formData: formData
+                });
+                
+                // Show more detailed error message
+                let errorMessage = 'Sorry, there was an error sending your message.\n\n';
+                if (error.status) {
+                    errorMessage += `Error Code: ${error.status}\n`;
+                }
+                if (error.text) {
+                    errorMessage += `Error: ${error.text}\n\n`;
+                } else if (error.message) {
+                    errorMessage += `Error: ${error.message}\n\n`;
+                }
+                errorMessage += 'Please check:\n';
+                errorMessage += '1. Template ID is correct: template_erq64ic\n';
+                errorMessage += '2. Service ID is correct: service_y3e7g69\n';
+                errorMessage += '3. Template variables match\n';
+                errorMessage += '4. Browser console (F12) for more details';
+                
+                alert(errorMessage);
+            });
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && contactModalOverlay.classList.contains('active')) {
+                contactModalOverlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            }
+        });
     </script>
 </body>
 </html>
