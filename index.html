@@ -8,7 +8,7 @@
     <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -214,11 +214,14 @@
             color: white;
             text-decoration: none;
             font-size: 0.875rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
+            font-weight: 100;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             transition: opacity 0.3s ease;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         .nav-links a:hover {
@@ -447,9 +450,8 @@
         </div>
         <div class="text-overlay">
             <h1 id="text1" class="active">I want to live for 100+ years</h1>
-            <h1 id="text2">I want to be active play tennis and run at 90</h1>
+            <h1 id="text2">I want to remain active, play sports at 90</h1>
             <h1 id="text3">I want to look beautiful with age</h1>
-            <h1 id="text4">I want my kids to be active and stop playing roblox</h1>
         </div>
         <div class="bottom-left-text">
             <p>XMachina is an AI Operating System</p>
@@ -495,8 +497,7 @@
         const texts = [
             { id: 'text1', delay: 3000 },
             { id: 'text2', delay: 3000 },
-            { id: 'text3', delay: 3000 },
-            { id: 'text4', delay: 3000 }
+            { id: 'text3', delay: 3000 }
         ];
         
         let currentIndex = 0;
