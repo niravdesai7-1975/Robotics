@@ -308,6 +308,18 @@
             opacity: 0.6;
         }
         
+        .company-description {
+            font-size: 1.125rem;
+            font-weight: 300;
+            color: #000;
+            margin: 0 0 50px 0;
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+            text-transform: none;
+            font-family: 'Inter', sans-serif;
+            max-width: 700px;
+        }
+        
         .contact-title {
             font-size: 2.5rem;
             font-weight: 900;
@@ -402,6 +414,11 @@
                 padding: 50px 30px 30px;
             }
             
+            .company-description {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            
             .contact-title {
                 font-size: 2rem;
             }
@@ -415,6 +432,11 @@
         @media (max-width: 480px) {
             .contact-modal {
                 padding: 40px 20px 20px;
+            }
+            
+            .company-description {
+                font-size: 0.9rem;
+                line-height: 1.6;
             }
             
             .contact-title {
@@ -463,6 +485,7 @@
     <div class="contact-modal-overlay" id="contact-modal-overlay">
         <div class="contact-modal">
             <button class="close-button" id="close-modal">&times;</button>
+            <p class="company-description">XMachina is the first-of-its-kind AI-powered wellness companion engineered exclusively for the next frontier of human experience — seamlessly uniting robotics, smart glasses, and immersive virtual reality into a single, always-aware layer of consciousness.</p>
             <h2 class="contact-title">WHAT'S ON YOUR MIND?</h2>
             <p class="contact-subtitle">We'll get back to you as soon as possible.</p>
             <form class="contact-form" id="contact-form">
