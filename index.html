@@ -293,38 +293,53 @@
             }
         }
 
-        .hero-title {
+        .bottom-left-text {
             position: absolute;
-            bottom: 100px;
-            left: var(--space-md);
+            bottom: 40px;
+            left: 40px;
+            z-index: 100;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+            max-width: 600px;
+        }
+
+        .bottom-left-text p {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(0.875rem, 1.5vw, 1.125rem);
-            font-weight: 500;
-            line-height: 1.4;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: #ffffff;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-            z-index: 10;
-            max-width: 400px;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.5s;
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1.6;
+            margin: 0;
+            text-align: left;
+        }
+
+        .bottom-left-text p:not(:first-child) {
+            margin-top: 0.5rem;
         }
 
         @media (max-width: 768px) {
-            .hero-title {
-                bottom: 120px;
-                left: var(--space-sm);
-                font-size: 0.875rem;
-                max-width: 60%;
+            .bottom-left-text {
+                bottom: 100px;
+                left: 15px;
+                right: 15px;
+                max-width: none;
+                width: calc(100% - 30px);
+            }
+
+            .bottom-left-text p {
+                font-size: 0.9rem;
             }
         }
 
         @media (max-width: 480px) {
-            .hero-title {
-                bottom: 150px;
-                left: var(--space-sm);
-                font-size: 0.75rem;
+            .bottom-left-text {
+                bottom: 90px;
+                left: 10px;
+                right: 10px;
+                width: calc(100% - 20px);
+            }
+
+            .bottom-left-text p {
+                font-size: 0.85rem;
             }
         }
 
@@ -1548,8 +1563,11 @@
         <!-- Top-left tagline (like original) -->
         <span class="hero-tagline">Pioneering Human-Machine Harmony</span>
         
-        <!-- Bottom-left title -->
-        <h1 class="hero-title">The Future of Robotics<br>Virtual Reality</h1>
+        <!-- Bottom-left text (original) -->
+        <div class="bottom-left-text">
+            <p>XMachina is an AI Operating System</p>
+            <p>For Robots and Wearables</p>
+        </div>
         
         <div class="hero-statements" aria-live="polite" aria-atomic="true">
             <p class="hero-statement active" id="statement-1">I want to live for 100+ years</p>
