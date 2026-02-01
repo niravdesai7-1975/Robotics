@@ -1,0 +1,20 @@
+{
+  "name": "XMachina Labs",
+  "short_name": "XMachina",
+  "description": "AI Operating System for Robots and Wearables - The Future of Human Wellness",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#0a0a1a",
+  "theme_color": "#0a0a1a",
+  "icons": [
+    {
+      "src": "Logo_Image.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["technology", "health", "lifestyle"],
+  "prefer_related_applications": false
+}
