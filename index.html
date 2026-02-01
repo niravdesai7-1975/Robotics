@@ -1774,71 +1774,15 @@
         // Wait for DOM
         document.addEventListener('DOMContentLoaded', () => {
             
-            // ========== Fullscreen Prompt ==========
-            const fullscreenPrompt = document.getElementById('fullscreen-prompt');
-            const enterFullscreenBtn = document.getElementById('enter-fullscreen');
-            const skipFullscreenBtn = document.getElementById('skip-fullscreen');
-            const dontShowAgain = document.getElementById('dont-show-again');
-            const floatingFullscreenBtn = document.getElementById('floating-fullscreen');
-            
-            // Check if user previously dismissed the prompt
-            const promptDismissed = localStorage.getItem('xmachina-fullscreen-dismissed');
-            
-            // Hide prompt if dismissed or already fullscreen
-            if (promptDismissed || FullscreenManager.isFullscreen()) {
-                fullscreenPrompt.classList.add('hidden');
-            }
-            
+            // ========== Fullscreen Helpers ==========
             // Aggressive fullscreen function
             async function goFullscreen() {
                 const success = await FullscreenManager.enter();
                 if (success) {
                     await FullscreenManager.lockLandscape();
-                    updateFullscreenUI();
                 }
                 return success;
             }
-            
-            // Update UI based on fullscreen state
-            function updateFullscreenUI() {
-                const isFS = FullscreenManager.isFullscreen();
-                const navBtn = document.getElementById('fullscreen-btn');
-                if (navBtn) navBtn.textContent = isFS ? 'Exit' : 'Immersive';
-                if (floatingFullscreenBtn) {
-                    floatingFullscreenBtn.textContent = isFS ? '⛶' : '⛶';
-                    floatingFullscreenBtn.setAttribute('aria-label', isFS ? 'Exit fullscreen' : 'Enter fullscreen');
-                }
-            }
-            
-            // Enter fullscreen button in prompt
-            enterFullscreenBtn.addEventListener('click', async () => {
-                await goFullscreen();
-                if (dontShowAgain.checked) {
-                    localStorage.setItem('xmachina-fullscreen-dismissed', 'true');
-                }
-                fullscreenPrompt.classList.add('hidden');
-            });
-            
-            // Skip button
-            skipFullscreenBtn.addEventListener('click', () => {
-                if (dontShowAgain.checked) {
-                    localStorage.setItem('xmachina-fullscreen-dismissed', 'true');
-                }
-                fullscreenPrompt.classList.add('hidden');
-            });
-            
-            // Floating fullscreen button
-            if (floatingFullscreenBtn) {
-                floatingFullscreenBtn.addEventListener('click', async () => {
-                    await FullscreenManager.toggle();
-                    updateFullscreenUI();
-                });
-            }
-            
-            // Listen for fullscreen changes
-            ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(event => {
-                document.addEventListener(event, updateFullscreenUI);
-            });
             
             // ========== Rotating Statements ==========
             const statements = document.querySelectorAll('.hero-statement');
@@ -1887,14 +1831,6 @@
                 }
             });
             
-            // ========== Fullscreen Mode (Nav Button) ==========
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            
-            fullscreenBtn.addEventListener('click', async () => {
-                await FullscreenManager.toggle();
-                await FullscreenManager.lockLandscape();
-                updateFullscreenUI();
-            });
             
             // ========== Scroll Animations (Intersection Observer) ==========
             const animatedElements = document.querySelectorAll('.animate-on-scroll');
@@ -2007,7 +1943,6 @@
                 if (e.key === 'f' || e.key === 'F' || e.key === 'F11') {
                     e.preventDefault();
                     FullscreenManager.toggle();
-                    updateFullscreenUI();
                 }
             });
             
@@ -2021,7 +1956,6 @@
                     if (!FullscreenManager.isFullscreen()) {
                         FullscreenManager.enter();
                         FullscreenManager.lockLandscape();
-                        updateFullscreenUI();
                     }
                 }
                 lastTap = currentTime;
@@ -2035,13 +1969,8 @@
                 
                 // Small delay to ensure interaction is registered
                 setTimeout(async () => {
-                    if (!FullscreenManager.isFullscreen() && !fullscreenPrompt.classList.contains('hidden')) {
-                        // Don't auto-fullscreen if prompt is showing
-                        return;
-                    }
                     await FullscreenManager.enter();
                     await FullscreenManager.lockLandscape();
-                    updateFullscreenUI();
                 }, 100);
             };
             
