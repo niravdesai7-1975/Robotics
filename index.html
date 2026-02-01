@@ -339,37 +339,55 @@
             animation: fadeInUp 1s ease forwards 0.7s;
         }
 
-        /* Rotating Statements */
+        /* Rotating Statements - Bottom Center (Original Style) */
         .hero-statements {
-            position: relative;
-            height: calc(var(--text-title) * 1.5);
-            width: 100%;
-            max-width: 1000px;
-            overflow: hidden;
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            max-width: 1200px;
+            min-height: 80px;
         }
 
         .hero-statement {
             position: absolute;
             width: 100%;
-            font-family: var(--font-primary);
-            font-size: var(--text-title);
-            font-weight: 600;
-            color: var(--color-text-primary);
+            left: 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.2;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.8s ease-in-out;
         }
 
         .hero-statement.active {
             opacity: 1;
-            transform: translateY(0);
         }
 
-        .hero-statement span {
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        @media (max-width: 768px) {
+            .hero-statements {
+                bottom: 100px;
+            }
+            
+            .hero-statement {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-statements {
+                bottom: 160px;
+            }
+            
+            .hero-statement {
+                font-size: 1.5rem;
+            }
         }
 
         /* Scroll indicator */
@@ -1036,12 +1054,6 @@
             }
         }
 
-        /* Very narrow (unlikely on spatial, but graceful) */
-        @media (max-width: 480px) {
-            .hero-statements {
-                height: calc(var(--text-title) * 2);
-            }
-        }
 
         /* Landscape mobile / tablet - important for Beam Pro */
         @media (orientation: landscape) and (max-height: 600px) {
@@ -1541,18 +1553,10 @@
         <!-- Bottom-left title -->
         <h1 class="hero-title">The Future of Robotics<br>Virtual Reality</h1>
         
-        <div class="hero-content">
-            <div class="hero-statements" aria-live="polite" aria-atomic="true">
-                <p class="hero-statement active" id="statement-1">
-                    I want to <span>live for 100+ years</span>
-                </p>
-                <p class="hero-statement" id="statement-2">
-                    I want to <span>remain active, play sports at 90</span>
-                </p>
-                <p class="hero-statement" id="statement-3">
-                    I want to <span>look beautiful with age</span>
-                </p>
-            </div>
+        <div class="hero-statements" aria-live="polite" aria-atomic="true">
+            <p class="hero-statement active" id="statement-1">I want to live for 100+ years</p>
+            <p class="hero-statement" id="statement-2">I want to remain active, play sports at 90</p>
+            <p class="hero-statement" id="statement-3">I want to look beautiful with age</p>
         </div>
         
         <div class="scroll-indicator" aria-hidden="true">
