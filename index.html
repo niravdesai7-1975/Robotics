@@ -1247,6 +1247,230 @@
             accent-color: var(--color-accent-primary);
         }
 
+        /* ============================================
+           COMPANY MODAL (Slide-in from right)
+           ============================================ */
+        .company-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: flex-end;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .company-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .company-modal {
+            background: #f5f5f0;
+            width: 100%;
+            max-width: 550px;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 60px 40px 40px;
+            position: relative;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            color: #000;
+        }
+
+        .company-modal-overlay.active .company-modal {
+            transform: translateX(0);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #000;
+            line-height: 1;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-close-btn:hover {
+            opacity: 0.6;
+        }
+
+        .modal-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            color: #000;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .modal-section {
+            margin-bottom: 35px;
+        }
+
+        .modal-section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .modal-vision-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-vision-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .modal-icon {
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .modal-vision-item strong {
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .modal-vision-item p {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .modal-tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .modal-tech-item {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #333;
+            padding: 8px 0;
+        }
+
+        .modal-contact-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #000;
+            margin: 0 0 8px 0;
+        }
+
+        .modal-contact-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0 0 25px 0;
+        }
+
+        .modal-contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .modal-form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-form-group label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 6px;
+        }
+
+        .modal-form-group input,
+        .modal-form-group textarea {
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #000;
+            transition: border-color 0.2s ease;
+        }
+
+        .modal-form-group input:focus,
+        .modal-form-group textarea:focus {
+            outline: none;
+            border-color: #888;
+        }
+
+        .modal-form-group input::placeholder,
+        .modal-form-group textarea::placeholder {
+            color: #999;
+        }
+
+        .modal-form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .modal-submit-btn {
+            background: #8b7fa8;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-top: 5px;
+        }
+
+        .modal-submit-btn:hover {
+            background: #7a6d96;
+        }
+
+        @media (max-width: 600px) {
+            .company-modal {
+                max-width: 100%;
+                padding: 50px 25px 30px;
+            }
+
+            .modal-form-row {
+                flex-direction: column;
+            }
+
+            .modal-contact-title {
+                font-size: 1.5rem;
+            }
+        }
+
         /* Reduced motion preference */
         @media (prefers-reduced-motion: reduce) {
             *,
@@ -1297,21 +1521,8 @@
         <a href="#" class="nav-logo" aria-label="XMachina Labs Home">XMachina</a>
         
         <ul class="nav-links" id="nav-links">
-            <li><a href="#wellness">Vision</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#features">Technology</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" id="company-link">COMPANY</a></li>
         </ul>
-        
-        <button class="fullscreen-btn" id="fullscreen-btn" aria-label="Enter fullscreen mode">
-            Immersive
-        </button>
-        
-        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
     </nav>
 
     <!-- Hero Section -->
@@ -1350,199 +1561,84 @@
         </div>
     </section>
 
-    <!-- Wellness Vision Section -->
-    <section class="wellness" id="wellness" aria-labelledby="wellness-title">
-        <div class="section-content">
-            <header class="section-header">
-                <span class="section-label">Our Vision</span>
-                <h2 class="section-title" id="wellness-title">Redefining Human Potential</h2>
-                <p class="section-description">
-                    We believe technology should extend human capability, not replace it. 
-                    XMachina is building the bridge between human aspiration and technological possibility.
-                </p>
-            </header>
+    <!-- Company Modal (combines Vision, About, Technology, Contact) -->
+    <div class="company-modal-overlay" id="company-modal-overlay">
+        <div class="company-modal">
+            <button class="modal-close-btn" id="close-modal" aria-label="Close modal">&times;</button>
             
-            <div class="wellness-grid">
-                <article class="wellness-card animate-on-scroll">
-                    <div class="wellness-card-content">
-                        <div class="wellness-icon" aria-hidden="true">⏳</div>
-                        <h3>Longevity</h3>
-                        <p>AI-powered health monitoring and predictive analytics to help you live beyond 100 years with vitality and purpose.</p>
-                    </div>
-                </article>
-                
-                <article class="wellness-card animate-on-scroll">
-                    <div class="wellness-card-content">
-                        <div class="wellness-icon" aria-hidden="true">🏃</div>
-                        <h3>Vitality</h3>
-                        <p>Robotic assistance and adaptive training systems that keep you active, athletic, and engaged at any age.</p>
-                    </div>
-                </article>
-                
-                <article class="wellness-card animate-on-scroll">
-                    <div class="wellness-card-content">
-                        <div class="wellness-icon" aria-hidden="true">✨</div>
-                        <h3>Radiance</h3>
-                        <p>Wearable technology that enhances your natural beauty and helps you age gracefully with confidence.</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- About XMachina Section -->
-    <section class="about" id="about" aria-labelledby="about-title">
-        <div class="section-content">
-            <div class="about-layout">
-                <div class="about-visual animate-on-scroll">
-                    <div class="about-visual-inner">
-                        <span class="about-visual-text" aria-hidden="true">AI</span>
-                    </div>
-                </div>
-                
-                <div class="about-text animate-on-scroll">
-                    <h2 id="about-title">
-                        XMachina is an <span class="highlight">AI Operating System</span> for Robots and Wearables
-                    </h2>
-                    <p>
-                        Based in California, XMachina represents the first-of-its-kind AI-powered wellness companion 
-                        engineered exclusively for the next frontier of human experience.
-                    </p>
-                    <p>
-                        We seamlessly unite robotics, wearables, and immersive virtual reality into a single, 
-                        always-aware layer of consciousness — designed to enhance every aspect of your life.
-                    </p>
-                    
-                    <div class="about-stats">
-                        <div class="stat">
-                            <div class="stat-value">AI</div>
-                            <div class="stat-label">Powered</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value">24/7</div>
-                            <div class="stat-label">Awareness</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value">∞</div>
-                            <div class="stat-label">Possibilities</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features" aria-labelledby="features-title">
-        <div class="section-content">
-            <header class="section-header">
-                <span class="section-label">Technology</span>
-                <h2 class="section-title" id="features-title">The XMachina Ecosystem</h2>
-                <p class="section-description">
-                    A unified platform connecting all aspects of your wellness journey through cutting-edge technology.
-                </p>
-            </header>
+            <!-- Company Description -->
+            <p class="modal-description">
+                XMachina is a California based, first-of-its-kind AI-powered wellness companion 
+                engineered exclusively for the next frontier of human experience — seamlessly uniting 
+                robotics, wearables and immersive virtual reality into a single, always-aware layer of consciousness.
+            </p>
             
-            <div class="features-grid">
-                <article class="feature-card animate-on-scroll">
-                    <div class="feature-icon" aria-hidden="true">🤖</div>
-                    <h3>Robotics</h3>
-                    <p>Intelligent robotic companions for daily assistance and health monitoring</p>
-                </article>
-                
-                <article class="feature-card animate-on-scroll">
-                    <div class="feature-icon" aria-hidden="true">⌚</div>
-                    <h3>Wearables</h3>
-                    <p>Smart devices that track, analyze, and optimize your wellness metrics</p>
-                </article>
-                
-                <article class="feature-card animate-on-scroll">
-                    <div class="feature-icon" aria-hidden="true">🥽</div>
-                    <h3>Immersive VR</h3>
-                    <p>Virtual reality experiences for therapy, training, and transformation</p>
-                </article>
-                
-                <article class="feature-card animate-on-scroll">
-                    <div class="feature-icon" aria-hidden="true">🧠</div>
-                    <h3>AI Core</h3>
-                    <p>Central intelligence that learns, adapts, and evolves with you</p>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact" aria-labelledby="contact-title">
-        <div class="section-content">
-            <div class="contact-layout">
-                <div class="contact-info animate-on-scroll">
-                    <h2 id="contact-title">Let's Build the Future Together</h2>
-                    <p>
-                        Whether you're interested in our technology, partnership opportunities, 
-                        or joining our mission to redefine human wellness — we'd love to hear from you.
-                    </p>
-                    
-                    <div class="contact-details">
-                        <div class="contact-detail">
-                            <div class="contact-detail-icon" aria-hidden="true">📍</div>
-                            <span>California, United States</span>
-                        </div>
-                        <div class="contact-detail">
-                            <div class="contact-detail-icon" aria-hidden="true">🌐</div>
-                            <span>www.xmachinalabs.com</span>
-                        </div>
+            <!-- Vision Section -->
+            <div class="modal-section">
+                <h3 class="modal-section-title">Our Vision</h3>
+                <div class="modal-vision-grid">
+                    <div class="modal-vision-item">
+                        <span class="modal-icon">⏳</span>
+                        <strong>Longevity</strong>
+                        <p>AI-powered health monitoring to help you live beyond 100 years with vitality.</p>
+                    </div>
+                    <div class="modal-vision-item">
+                        <span class="modal-icon">🏃</span>
+                        <strong>Vitality</strong>
+                        <p>Robotic assistance that keeps you active and athletic at any age.</p>
+                    </div>
+                    <div class="modal-vision-item">
+                        <span class="modal-icon">✨</span>
+                        <strong>Radiance</strong>
+                        <p>Wearable technology that enhances your natural beauty gracefully.</p>
                     </div>
                 </div>
-                
-                <div class="contact-form-container animate-on-scroll">
-                    <h3 class="contact-form-title">What's On Your Mind?</h3>
-                    <p style="text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-sm); font-size: var(--text-small);">
-                        We'll get back to you as soon as possible.
-                    </p>
-                    
-                    <form class="contact-form" id="contact-form" aria-label="Contact form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="firstName">First Name *</label>
-                                <input type="text" id="firstName" name="firstName" placeholder="John" required aria-required="true">
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name *</label>
-                                <input type="text" id="lastName" name="lastName" placeholder="Doe" required aria-required="true">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" placeholder="john@example.com" required aria-required="true">
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="subject">Subject *</label>
-                            <input type="text" id="subject" name="subject" placeholder="How can we help?" required aria-required="true">
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="message">Message *</label>
-                            <textarea id="message" name="message" placeholder="Tell us about your interest in XMachina..." required aria-required="true"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="submit-btn">
-                            Send Message
-                        </button>
-                    </form>
+            </div>
+            
+            <!-- Technology Section -->
+            <div class="modal-section">
+                <h3 class="modal-section-title">Technology</h3>
+                <div class="modal-tech-grid">
+                    <div class="modal-tech-item">🤖 Robotics</div>
+                    <div class="modal-tech-item">⌚ Wearables</div>
+                    <div class="modal-tech-item">🥽 Immersive VR</div>
+                    <div class="modal-tech-item">🧠 AI Core</div>
                 </div>
             </div>
+            
+            <!-- Contact Form -->
+            <div class="modal-section">
+                <h2 class="modal-contact-title">WHAT'S ON YOUR MIND?</h2>
+                <p class="modal-contact-subtitle">We'll get back to you as soon as possible.</p>
+                
+                <form class="modal-contact-form" id="modal-contact-form">
+                    <div class="modal-form-row">
+                        <div class="modal-form-group">
+                            <label for="firstName">First Name*</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                        </div>
+                        <div class="modal-form-group">
+                            <label for="lastName">Last Name*</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                        </div>
+                    </div>
+                    <div class="modal-form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="modal-form-group">
+                        <label for="subject">Subject*</label>
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="modal-form-group">
+                        <label for="message">Message*</label>
+                        <textarea id="message" name="message" placeholder="Message" required></textarea>
+                    </div>
+                    <button type="submit" class="modal-submit-btn">Submit</button>
+                </form>
+            </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-        <div class="footer-content">
-            <span class="footer-logo">XMachina Labs</span>
-            <span class="footer-text">© 2024 XMachina Labs. All rights reserved.</span>
-        </div>
-    </footer>
+    </div>
 
     <script>
         /* ============================================
@@ -1731,22 +1827,38 @@
             
             setInterval(rotateStatements, statementInterval);
             
-            // ========== Mobile Navigation Toggle ==========
-            const navToggle = document.getElementById('nav-toggle');
-            const navLinks = document.getElementById('nav-links');
+            // ========== Company Modal ==========
+            const companyLink = document.getElementById('company-link');
+            const companyModalOverlay = document.getElementById('company-modal-overlay');
+            const closeModalBtn = document.getElementById('close-modal');
             
-            navToggle.addEventListener('click', () => {
-                const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-                navToggle.setAttribute('aria-expanded', !isExpanded);
-                navLinks.classList.toggle('active');
+            // Open modal
+            companyLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                companyModalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
             });
             
-            // Close mobile nav on link click
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    navToggle.setAttribute('aria-expanded', 'false');
-                });
+            // Close modal
+            closeModalBtn.addEventListener('click', () => {
+                companyModalOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Close on overlay click
+            companyModalOverlay.addEventListener('click', (e) => {
+                if (e.target === companyModalOverlay) {
+                    companyModalOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Close on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && companyModalOverlay.classList.contains('active')) {
+                    companyModalOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
             });
             
             // ========== Fullscreen Mode (Nav Button) ==========
@@ -1797,12 +1909,12 @@
             // Initialize EmailJS
             emailjs.init("jMoAcPJdoXp2RN656");
             
-            const contactForm = document.getElementById('contact-form');
+            const contactForm = document.getElementById('modal-contact-form');
             
             contactForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
-                const submitBtn = contactForm.querySelector('.submit-btn');
+                const submitBtn = contactForm.querySelector('.modal-submit-btn');
                 const originalText = submitBtn.textContent;
                 
                 // Get form data
@@ -1847,6 +1959,8 @@
                     // Success
                     alert('Thank you for your message! We\'ll get back to you soon.');
                     contactForm.reset();
+                    companyModalOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
                     
                 } catch (error) {
                     console.error('Email error:', error);
