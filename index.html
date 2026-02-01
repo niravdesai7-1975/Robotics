@@ -266,7 +266,7 @@
 
         .hero-tagline {
             position: absolute;
-            top: calc(var(--space-sm) + 60px);
+            top: 100px;
             left: var(--space-md);
             font-family: 'Inter', sans-serif;
             font-size: 0.875rem;
@@ -281,9 +281,17 @@
 
         @media (max-width: 768px) {
             .hero-tagline {
-                top: calc(var(--space-sm) + 50px);
+                top: 90px;
                 left: var(--space-sm);
                 font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-tagline {
+                top: 80px;
+                left: var(--space-sm);
+                font-size: 0.75rem;
             }
         }
 
