@@ -296,17 +296,38 @@
         }
 
         .hero-title {
-            font-family: var(--font-primary);
-            font-size: var(--text-hero);
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            background: linear-gradient(135deg, #fff 0%, #a5b4fc 50%, #06b6d4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            position: absolute;
+            bottom: 100px;
+            left: var(--space-md);
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            z-index: 10;
+            max-width: 600px;
             opacity: 0;
             animation: fadeInUp 1s ease forwards 0.5s;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                bottom: 120px;
+                left: var(--space-sm);
+                font-size: clamp(1.5rem, 4vw, 2.5rem);
+                max-width: 80%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                bottom: 150px;
+                left: var(--space-sm);
+                font-size: 1.5rem;
+            }
         }
 
         .hero-subtitle {
@@ -1306,9 +1327,10 @@
         <!-- Top-left tagline (like original) -->
         <span class="hero-tagline">Pioneering Human-Machine Harmony</span>
         
+        <!-- Bottom-left title -->
+        <h1 class="hero-title">The Future of Robotics<br>Virtual Reality</h1>
+        
         <div class="hero-content">
-            <h1 class="hero-title">The Future of Robotics<br>Virtual Reality</h1>
-            
             <p class="hero-subtitle">Driving the future of human wellness through AI, robotics, and immersive experiences</p>
             
             <div class="hero-statements" aria-live="polite" aria-atomic="true">
