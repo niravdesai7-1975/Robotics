@@ -2,718 +2,1488 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Future of Robotics Virtual Reality</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a1a">
+    <meta name="description" content="XMachina - AI Operating System for Robots and Wearables. Driving the future of human wellness.">
+    <title>XMachina Labs | The Future of Robotics & Virtual Reality</title>
     
-    <!-- Google Fonts - Inter -->
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        /* ============================================
+           CSS CUSTOM PROPERTIES (Design Tokens)
+           ============================================ */
+        :root {
+            /* Colors - Cyberpunk Wellness Theme */
+            --color-bg-primary: #0a0a1a;
+            --color-bg-secondary: #0f0f2a;
+            --color-bg-tertiary: #141432;
+            --color-bg-card: rgba(20, 20, 50, 0.6);
+            
+            --color-accent-primary: #6366f1;    /* Indigo */
+            --color-accent-secondary: #8b5cf6;  /* Purple */
+            --color-accent-tertiary: #06b6d4;   /* Cyan */
+            --color-accent-glow: #a855f7;       /* Violet glow */
+            
+            --color-text-primary: #ffffff;
+            --color-text-secondary: rgba(255, 255, 255, 0.8);
+            --color-text-muted: rgba(255, 255, 255, 0.5);
+            
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0f0f2a 100%);
+            --gradient-accent: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            --gradient-glow: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            
+            /* Typography - Large for AR/VR displays */
+            --font-primary: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+            --font-secondary: 'Inter', system-ui, sans-serif;
+            
+            --text-hero: clamp(3rem, 8vw, 8rem);
+            --text-title: clamp(2rem, 5vw, 5rem);
+            --text-subtitle: clamp(1.25rem, 3vw, 2.5rem);
+            --text-body: clamp(1rem, 2vw, 1.5rem);
+            --text-small: clamp(0.875rem, 1.5vw, 1.25rem);
+            
+            /* Spacing */
+            --space-xs: clamp(0.5rem, 1vw, 1rem);
+            --space-sm: clamp(1rem, 2vw, 2rem);
+            --space-md: clamp(2rem, 4vw, 4rem);
+            --space-lg: clamp(4rem, 8vw, 8rem);
+            --space-xl: clamp(6rem, 12vw, 12rem);
+            
+            /* Layout */
+            --max-width: 1920px;
+            --content-width: min(90vw, 1600px);
+            
+            /* Transitions */
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
-            overflow: hidden;
+            box-sizing: border-box;
         }
-        
-        body.modal-open {
-            overflow: hidden;
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        
-        .video-container {
+
+        body {
+            font-family: var(--font-secondary);
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Scrollbar styling for immersive feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-secondary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-accent-primary);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-accent-secondary);
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: var(--space-sm) var(--space-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(10, 10, 26, 0.95) 0%, transparent 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .nav-logo {
+            font-family: var(--font-primary);
+            font-size: var(--text-subtitle);
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-md);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: var(--text-small);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color var(--transition-fast);
             position: relative;
-            width: 100vw;
-            height: 100vh;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            transition: width var(--transition-base);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Fullscreen button */
+        .fullscreen-btn {
+            background: transparent;
+            border: 1px solid var(--color-accent-primary);
+            color: var(--color-accent-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: var(--text-small);
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+
+        .fullscreen-btn:hover {
+            background: var(--color-accent-primary);
+            color: var(--color-bg-primary);
+        }
+
+        /* Mobile hamburger */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--color-text-primary);
+            transition: var(--transition-fast);
+        }
+
+        /* ============================================
+           HERO SECTION - Full Viewport Cinematic
+           ============================================ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
-        
-        .video-container video {
+
+        /* Video Background */
+        .hero-video-container {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center 30%;
         }
-        
-        .text-overlay {
+
+        /* Gradient overlays for depth */
+        .hero-overlay {
             position: absolute;
-            bottom: 100px;
+            inset: 0;
+            background: 
+                linear-gradient(to bottom, rgba(10, 10, 26, 0.4) 0%, transparent 30%),
+                linear-gradient(to top, rgba(10, 10, 26, 0.95) 0%, transparent 40%),
+                var(--gradient-glow);
+            z-index: 1;
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: var(--content-width);
+            padding: var(--space-lg) var(--space-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .hero-tagline {
+            font-size: var(--text-small);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--color-accent-tertiary);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.3s;
+        }
+
+        .hero-title {
+            font-family: var(--font-primary);
+            font-size: var(--text-hero);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+
+        .hero-subtitle {
+            font-size: var(--text-subtitle);
+            font-weight: 300;
+            color: var(--color-text-secondary);
+            max-width: 800px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.7s;
+        }
+
+        /* Rotating Statements */
+        .hero-statements {
+            position: relative;
+            height: calc(var(--text-title) * 1.5);
+            width: 100%;
+            max-width: 1000px;
+            overflow: hidden;
+        }
+
+        .hero-statement {
+            position: absolute;
+            width: 100%;
+            font-family: var(--font-primary);
+            font-size: var(--text-title);
+            font-weight: 600;
+            color: var(--color-text-primary);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-statement.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-statement span {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: var(--space-md);
             left: 50%;
             transform: translateX(-50%);
-            text-align: center;
-            z-index: 10;
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-            width: 90%;
-            max-width: 1200px;
-            min-height: 80px;
-        }
-        
-        .text-overlay h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            line-height: 1.2;
-            margin: 0;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            position: absolute;
-            width: 100%;
-            left: 0;
-        }
-        
-        .text-overlay h1.active {
-            opacity: 1;
-        }
-        
-        @media (max-width: 768px) {
-            .text-overlay {
-                bottom: 100px;
-            }
-            
-            .text-overlay h1 {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .text-overlay {
-                bottom: 160px;
-            }
-            
-            .text-overlay h1 {
-                font-size: 1.5rem;
-            }
-        }
-        
-        .top-center-text {
-            position: absolute;
-            top: 100px;
-            left: 40px;
-            z-index: 100;
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
-            text-align: left;
-            pointer-events: none;
-        }
-        
-        .top-center-text p {
-            font-size: 0.875rem;
-            font-weight: 400;
-            line-height: 1.6;
-            margin: 0;
-        }
-        
-        .bottom-left-text {
-            position: absolute;
-            bottom: 40px;
-            left: 40px;
-            z-index: 100;
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
-            max-width: 600px;
-            pointer-events: none;
-        }
-        
-        .bottom-left-text p {
-            font-size: 0.875rem;
-            font-weight: 400;
-            line-height: 1.6;
-            margin: 0;
-            text-align: left;
-        }
-        
-        .bottom-left-text p:not(:first-child) {
-            margin-top: 0.5rem;
-        }
-        
-        @media (max-width: 768px) {
-            .top-center-text {
-                top: 90px;
-                left: 20px;
-            }
-            
-            .top-center-text p {
-                font-size: 0.85rem;
-            }
-            
-            .bottom-left-text {
-                bottom: 100px;
-                left: 15px;
-                right: 15px;
-                max-width: none;
-                width: calc(100% - 30px);
-            }
-            
-            .bottom-left-text p {
-                font-size: 0.9rem;
-                line-height: 1.6;
-            }
-            
-            .bottom-left-text p:not(:first-child) {
-                margin-top: 0.4rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .top-center-text {
-                top: 80px;
-                left: 10px;
-                max-width: calc(100% - 20px);
-            }
-            
-            .top-center-text p {
-                font-size: 0.8rem;
-            }
-            
-            .bottom-left-text {
-                bottom: 90px;
-                left: 10px;
-                right: 10px;
-                max-width: none;
-                width: calc(100% - 20px);
-            }
-            
-            .bottom-left-text p {
-                font-size: 0.85rem;
-                line-height: 1.5;
-            }
-            
-            .bottom-left-text p:not(:first-child) {
-                margin-top: 0.3rem;
-            }
-        }
-        
-        .navigation-menu {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 200;
-            padding: 30px 40px;
-            pointer-events: auto;
-        }
-        
-        .nav-links {
+            z-index: 3;
             display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .nav-links li {
-            margin: 0;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 100;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            transition: opacity 0.3s ease;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        
-        .nav-links a:hover {
-            opacity: 0.7;
-        }
-        
-        @media (max-width: 768px) {
-            .navigation-menu {
-                padding: 20px 30px;
-            }
-            
-            .nav-links a {
-                font-size: 0.8rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .navigation-menu {
-                padding: 15px 20px;
-            }
-            
-            .nav-links a {
-                font-size: 0.75rem;
-            }
-        }
-        
-        /* Contact Modal Styles */
-        .contact-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            display: none;
-            justify-content: flex-end;
+            flex-direction: column;
             align-items: center;
+            gap: 0.5rem;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            animation: fadeIn 1s ease forwards 1.5s;
         }
-        
-        .contact-modal-overlay.active {
-            display: flex;
-            opacity: 1;
+
+        .scroll-indicator span {
+            font-size: var(--text-small);
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
         }
-        
-        .contact-modal {
-            background-color: #f5f5f0;
-            width: 100%;
-            max-width: 500px;
-            height: 100vh;
-            overflow-y: auto;
-            padding: 60px 40px 40px;
-            position: relative;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .contact-modal-overlay.active .contact-modal {
-            transform: translateX(0);
-        }
-        
-        .close-button {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #000;
-            line-height: 1;
-            padding: 0;
-            width: 40px;
+
+        .scroll-mouse {
+            width: 24px;
             height: 40px;
+            border: 2px solid var(--color-text-muted);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-mouse::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--color-accent-primary);
+            border-radius: 2px;
+            animation: scrollPulse 2s infinite;
+        }
+
+        /* ============================================
+           SECTIONS - Widescreen Layout
+           ============================================ */
+        section {
+            position: relative;
+            padding: var(--space-xl) var(--space-md);
+            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.3s ease;
         }
-        
-        .close-button:hover {
-            opacity: 0.6;
+
+        .section-content {
+            width: var(--content-width);
+            max-width: var(--max-width);
         }
-        
-        .company-description {
-            font-size: 1.125rem;
-            font-weight: 300;
-            color: #000;
-            margin: 0 0 50px 0;
-            line-height: 1.8;
-            letter-spacing: 0.02em;
-            text-transform: none;
-            font-family: 'Inter', sans-serif;
-            max-width: 700px;
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-lg);
         }
-        
-        .contact-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #000;
-            margin: 0 0 10px 0;
-            line-height: 1.2;
-        }
-        
-        .contact-subtitle {
-            font-size: 1rem;
-            color: #000;
-            margin: 0 0 40px 0;
-            font-weight: 400;
-        }
-        
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .form-row {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .form-group {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .form-group.full-width {
-            flex: 1 1 100%;
-        }
-        
-        .form-group label {
-            font-size: 0.875rem;
-            color: #000;
-            margin-bottom: 8px;
+
+        .section-label {
+            font-size: var(--text-small);
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--color-accent-tertiary);
+            margin-bottom: var(--space-xs);
         }
-        
+
+        .section-title {
+            font-family: var(--font-primary);
+            font-size: var(--text-title);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-description {
+            font-size: var(--text-body);
+            color: var(--color-text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           WELLNESS VISION SECTION
+           ============================================ */
+        .wellness {
+            background: var(--color-bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wellness::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150%;
+            height: 100%;
+            background: var(--gradient-glow);
+            opacity: 0.5;
+        }
+
+        .wellness-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .wellness-card {
+            background: var(--color-bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 16px;
+            padding: var(--space-md);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wellness-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .wellness-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-accent-primary);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .wellness-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .wellness-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .wellness-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-sm);
+            font-size: 2rem;
+        }
+
+        .wellness-card h3 {
+            font-family: var(--font-primary);
+            font-size: var(--text-subtitle);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .wellness-card p {
+            font-size: var(--text-body);
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           ABOUT XMACHINA SECTION
+           ============================================ */
+        .about {
+            background: var(--gradient-hero);
+        }
+
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .about-visual {
+            position: relative;
+            aspect-ratio: 16/10;
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--color-bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .about-visual-inner {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(99, 102, 241, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(6, 182, 212, 0.3) 0%, transparent 50%),
+                var(--gradient-hero);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-visual-text {
+            font-family: var(--font-primary);
+            font-size: clamp(4rem, 10vw, 12rem);
+            font-weight: 900;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.3;
+        }
+
+        .about-text h2 {
+            font-family: var(--font-primary);
+            font-size: var(--text-title);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            letter-spacing: -0.02em;
+        }
+
+        .about-text .highlight {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text p {
+            font-size: var(--text-body);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin-bottom: var(--space-sm);
+        }
+
+        .about-stats {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: var(--font-primary);
+            font-size: var(--text-subtitle);
+            font-weight: 700;
+            color: var(--color-accent-tertiary);
+        }
+
+        .stat-label {
+            font-size: var(--text-small);
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ============================================
+           FEATURES SECTION
+           ============================================ */
+        .features {
+            background: var(--color-bg-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, var(--color-bg-tertiary) 0%, var(--color-bg-card) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 16px;
+            padding: var(--space-md);
+            text-align: center;
+            transition: all var(--transition-base);
+        }
+
+        .feature-card:hover {
+            transform: scale(1.02);
+            border-color: var(--color-accent-primary);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-sm);
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-primary);
+            font-size: var(--text-body);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .feature-card p {
+            font-size: var(--text-small);
+            color: var(--color-text-muted);
+        }
+
+        /* ============================================
+           CONTACT SECTION
+           ============================================ */
+        .contact {
+            background: var(--gradient-hero);
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: var(--space-lg);
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            font-family: var(--font-primary);
+            font-size: var(--text-title);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+
+        .contact-info p {
+            font-size: var(--text-body);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin-bottom: var(--space-md);
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: var(--text-body);
+            color: var(--color-text-secondary);
+        }
+
+        .contact-detail-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Contact Form */
+        .contact-form-container {
+            background: var(--color-bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 24px;
+            padding: var(--space-md);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .contact-form-title {
+            font-family: var(--font-primary);
+            font-size: var(--text-subtitle);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            text-align: center;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: var(--space-sm);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-sm);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: var(--text-small);
+            font-weight: 500;
+            color: var(--color-text-secondary);
+        }
+
         .form-group input,
         .form-group textarea {
-            padding: 12px 16px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            background-color: #fff;
-            color: #000;
-            transition: border-color 0.3s ease;
+            background: rgba(10, 10, 26, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            font-family: var(--font-secondary);
+            font-size: var(--text-body);
+            color: var(--color-text-primary);
+            transition: all var(--transition-fast);
         }
-        
+
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #666;
+            border-color: var(--color-accent-primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
         }
-        
+
         .form-group input::placeholder,
         .form-group textarea::placeholder {
-            color: #999;
+            color: var(--color-text-muted);
         }
-        
+
         .form-group textarea {
             min-height: 150px;
             resize: vertical;
         }
-        
-        .submit-button {
-            background-color: #8b7fa8;
-            color: white;
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gradient-accent);
             border: none;
-            padding: 16px;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 12px;
+            padding: 1.25rem 2rem;
+            font-family: var(--font-primary);
+            font-size: var(--text-body);
             font-weight: 600;
+            color: white;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
         }
-        
-        .submit-button:hover {
-            background-color: #7a6d96;
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity var(--transition-fast);
         }
+
+        .submit-btn:hover::before {
+            opacity: 1;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--color-bg-primary);
+            padding: var(--space-md) var(--space-md);
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .footer-content {
+            width: var(--content-width);
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-primary);
+            font-size: var(--text-body);
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-text {
+            font-size: var(--text-small);
+            color: var(--color-text-muted);
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            50% { transform: translateX(-50%) translateY(10px); opacity: 0.5; }
+        }
+
+        /* Intersection Observer animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           RESPONSIVE - Widescreen First
+           ============================================ */
         
+        /* Ultra-wide displays (21:9 and wider) */
+        @media (min-aspect-ratio: 21/9) {
+            .hero-content {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .wellness-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Standard widescreen (16:9) */
+        @media (min-aspect-ratio: 16/9) and (min-width: 1200px) {
+            .about-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .contact-layout {
+                grid-template-columns: 1fr 1.2fr;
+            }
+        }
+
+        /* Large screens */
+        @media (max-width: 1400px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Tablets / narrower views */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--color-bg-primary);
+                flex-direction: column;
+                padding: var(--space-md);
+                border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-toggle {
+                display: flex;
+            }
+            
+            .wellness-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-layout,
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+            
+            .about-visual {
+                order: -1;
+            }
+        }
+
+        /* Mobile - but still optimized for spatial displays */
         @media (max-width: 768px) {
-            .contact-modal {
-                max-width: 100%;
-                padding: 50px 30px 30px;
+            .wellness-grid {
+                grid-template-columns: 1fr;
             }
             
-            .company-description {
-                font-size: 1rem;
-                line-height: 1.7;
-            }
-            
-            .contact-title {
-                font-size: 2rem;
-            }
-            
-            .close-button {
-                top: 20px;
-                right: 30px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .contact-modal {
-                padding: 40px 20px 20px;
-            }
-            
-            .company-description {
-                font-size: 0.9rem;
-                line-height: 1.6;
-            }
-            
-            .contact-title {
-                font-size: 1.75rem;
+            .features-grid {
+                grid-template-columns: 1fr;
             }
             
             .form-row {
-                flex-direction: column;
-                gap: 20px;
+                grid-template-columns: 1fr;
             }
             
-            .close-button {
-                top: 15px;
-                right: 20px;
-                font-size: 1.5rem;
+            .about-stats {
+                justify-content: center;
             }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+                text-align: center;
+            }
+        }
+
+        /* Very narrow (unlikely on spatial, but graceful) */
+        @media (max-width: 480px) {
+            .hero-statements {
+                height: calc(var(--text-title) * 2);
+            }
+        }
+
+        /* Landscape mobile / tablet - important for Beam Pro */
+        @media (orientation: landscape) and (max-height: 600px) {
+            section {
+                min-height: auto;
+                padding: var(--space-md) var(--space-md);
+            }
+            
+            .hero {
+                min-height: 100vh;
+            }
+        }
+
+        /* High DPI / Retina optimization */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            body {
+                -webkit-font-smoothing: subpixel-antialiased;
+            }
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* Dark mode is default, but support light if needed */
+        @media (prefers-color-scheme: light) {
+            /* Keeping dark for AR glasses optimal viewing */
         }
     </style>
 </head>
 <body>
-    <div class="video-container">
-        <video autoplay muted loop playsinline>
-            <source src="Running Video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <nav class="navigation-menu">
-            <ul class="nav-links">
-                <li><a href="#" id="company-link">COMPANY</a></li>
-            </ul>
-        </nav>
-        <div class="top-center-text">
-            <p>Driving the future of human wellness</p>
+    <!-- Navigation -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+        <a href="#" class="nav-logo" aria-label="XMachina Labs Home">XMachina</a>
+        
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#wellness">Vision</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Technology</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        
+        <button class="fullscreen-btn" id="fullscreen-btn" aria-label="Enter fullscreen mode">
+            Immersive
+        </button>
+        
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero" aria-label="Hero section">
+        <div class="hero-video-container">
+            <video class="hero-video" autoplay muted loop playsinline aria-hidden="true">
+                <source src="Running Video.mp4" type="video/mp4">
+            </video>
         </div>
-        <div class="text-overlay">
-            <h1 id="text1" class="active">I want to live for 100+ years</h1>
-            <h1 id="text2">I want to remain active, play sports at 90</h1>
-            <h1 id="text3">I want to look beautiful with age</h1>
+        
+        <div class="hero-overlay" aria-hidden="true"></div>
+        
+        <div class="hero-content">
+            <span class="hero-tagline">Pioneering Human-Machine Harmony</span>
+            
+            <h1 class="hero-title">The Future of Robotics<br>Virtual Reality</h1>
+            
+            <p class="hero-subtitle">Driving the future of human wellness through AI, robotics, and immersive experiences</p>
+            
+            <div class="hero-statements" aria-live="polite" aria-atomic="true">
+                <p class="hero-statement active" id="statement-1">
+                    I want to <span>live for 100+ years</span>
+                </p>
+                <p class="hero-statement" id="statement-2">
+                    I want to <span>remain active, play sports at 90</span>
+                </p>
+                <p class="hero-statement" id="statement-3">
+                    I want to <span>look beautiful with age</span>
+                </p>
+            </div>
         </div>
-        <div class="bottom-left-text">
-            <p>XMachina is an AI Operating System</p>
-            <p>For Robots and Wearables</p>
+        
+        <div class="scroll-indicator" aria-hidden="true">
+            <span>Scroll</span>
+            <div class="scroll-mouse"></div>
         </div>
-        </div>
-    
-    <!-- Contact Modal -->
-    <div class="contact-modal-overlay" id="contact-modal-overlay">
-        <div class="contact-modal">
-            <button class="close-button" id="close-modal">&times;</button>
-            <p class="company-description">XMachina is a California based, first-of-its-kind AI-powered wellness companion engineered exclusively for the next frontier of human experience — seamlessly uniting robotics, wearables and immersive virtual reality into a single, always-aware layer of consciousness.</p>
-            <h2 class="contact-title">WHAT'S ON YOUR MIND?</h2>
-            <p class="contact-subtitle">We'll get back to you as soon as possible.</p>
-            <form class="contact-form" id="contact-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="firstName">First Name*</label>
-                        <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+    </section>
+
+    <!-- Wellness Vision Section -->
+    <section class="wellness" id="wellness" aria-labelledby="wellness-title">
+        <div class="section-content">
+            <header class="section-header">
+                <span class="section-label">Our Vision</span>
+                <h2 class="section-title" id="wellness-title">Redefining Human Potential</h2>
+                <p class="section-description">
+                    We believe technology should extend human capability, not replace it. 
+                    XMachina is building the bridge between human aspiration and technological possibility.
+                </p>
+            </header>
+            
+            <div class="wellness-grid">
+                <article class="wellness-card animate-on-scroll">
+                    <div class="wellness-card-content">
+                        <div class="wellness-icon" aria-hidden="true">⏳</div>
+                        <h3>Longevity</h3>
+                        <p>AI-powered health monitoring and predictive analytics to help you live beyond 100 years with vitality and purpose.</p>
                     </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name*</label>
-                        <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                </article>
+                
+                <article class="wellness-card animate-on-scroll">
+                    <div class="wellness-card-content">
+                        <div class="wellness-icon" aria-hidden="true">🏃</div>
+                        <h3>Vitality</h3>
+                        <p>Robotic assistance and adaptive training systems that keep you active, athletic, and engaged at any age.</p>
+                    </div>
+                </article>
+                
+                <article class="wellness-card animate-on-scroll">
+                    <div class="wellness-card-content">
+                        <div class="wellness-icon" aria-hidden="true">✨</div>
+                        <h3>Radiance</h3>
+                        <p>Wearable technology that enhances your natural beauty and helps you age gracefully with confidence.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- About XMachina Section -->
+    <section class="about" id="about" aria-labelledby="about-title">
+        <div class="section-content">
+            <div class="about-layout">
+                <div class="about-visual animate-on-scroll">
+                    <div class="about-visual-inner">
+                        <span class="about-visual-text" aria-hidden="true">AI</span>
                     </div>
                 </div>
-                <div class="form-group full-width">
-                    <label for="email">Email*</label>
-                    <input type="email" id="email" name="email" placeholder="Email" required>
+                
+                <div class="about-text animate-on-scroll">
+                    <h2 id="about-title">
+                        XMachina is an <span class="highlight">AI Operating System</span> for Robots and Wearables
+                    </h2>
+                    <p>
+                        Based in California, XMachina represents the first-of-its-kind AI-powered wellness companion 
+                        engineered exclusively for the next frontier of human experience.
+                    </p>
+                    <p>
+                        We seamlessly unite robotics, wearables, and immersive virtual reality into a single, 
+                        always-aware layer of consciousness — designed to enhance every aspect of your life.
+                    </p>
+                    
+                    <div class="about-stats">
+                        <div class="stat">
+                            <div class="stat-value">AI</div>
+                            <div class="stat-label">Powered</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">24/7</div>
+                            <div class="stat-label">Awareness</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">∞</div>
+                            <div class="stat-label">Possibilities</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group full-width">
-                    <label for="subject">Subject*</label>
-                    <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                </div>
-                <div class="form-group full-width">
-                    <label for="message">Message*</label>
-                    <textarea id="message" name="message" placeholder="Message" required></textarea>
-                </div>
-                <button type="submit" class="submit-button">Submit</button>
-            </form>
+            </div>
         </div>
-    </div>
-    
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features" aria-labelledby="features-title">
+        <div class="section-content">
+            <header class="section-header">
+                <span class="section-label">Technology</span>
+                <h2 class="section-title" id="features-title">The XMachina Ecosystem</h2>
+                <p class="section-description">
+                    A unified platform connecting all aspects of your wellness journey through cutting-edge technology.
+                </p>
+            </header>
+            
+            <div class="features-grid">
+                <article class="feature-card animate-on-scroll">
+                    <div class="feature-icon" aria-hidden="true">🤖</div>
+                    <h3>Robotics</h3>
+                    <p>Intelligent robotic companions for daily assistance and health monitoring</p>
+                </article>
+                
+                <article class="feature-card animate-on-scroll">
+                    <div class="feature-icon" aria-hidden="true">⌚</div>
+                    <h3>Wearables</h3>
+                    <p>Smart devices that track, analyze, and optimize your wellness metrics</p>
+                </article>
+                
+                <article class="feature-card animate-on-scroll">
+                    <div class="feature-icon" aria-hidden="true">🥽</div>
+                    <h3>Immersive VR</h3>
+                    <p>Virtual reality experiences for therapy, training, and transformation</p>
+                </article>
+                
+                <article class="feature-card animate-on-scroll">
+                    <div class="feature-icon" aria-hidden="true">🧠</div>
+                    <h3>AI Core</h3>
+                    <p>Central intelligence that learns, adapts, and evolves with you</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+        <div class="section-content">
+            <div class="contact-layout">
+                <div class="contact-info animate-on-scroll">
+                    <h2 id="contact-title">Let's Build the Future Together</h2>
+                    <p>
+                        Whether you're interested in our technology, partnership opportunities, 
+                        or joining our mission to redefine human wellness — we'd love to hear from you.
+                    </p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon" aria-hidden="true">📍</div>
+                            <span>California, United States</span>
+                        </div>
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon" aria-hidden="true">🌐</div>
+                            <span>www.xmachinalabs.com</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container animate-on-scroll">
+                    <h3 class="contact-form-title">What's On Your Mind?</h3>
+                    <p style="text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-sm); font-size: var(--text-small);">
+                        We'll get back to you as soon as possible.
+                    </p>
+                    
+                    <form class="contact-form" id="contact-form" aria-label="Contact form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="John" required aria-required="true">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Doe" required aria-required="true">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" placeholder="john@example.com" required aria-required="true">
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="subject">Subject *</label>
+                            <input type="text" id="subject" name="subject" placeholder="How can we help?" required aria-required="true">
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your interest in XMachina..." required aria-required="true"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <span class="footer-logo">XMachina Labs</span>
+            <span class="footer-text">© 2024 XMachina Labs. All rights reserved.</span>
+        </div>
+    </footer>
+
     <script>
-        const texts = [
-            { id: 'text1', delay: 3000 },
-            { id: 'text2', delay: 3000 },
-            { id: 'text3', delay: 3000 }
-        ];
+        /* ============================================
+           JAVASCRIPT - Minimal, performant
+           ============================================ */
         
-        let currentIndex = 0;
-        
-        function showNextText() {
-            // Hide current text
-            const currentText = document.getElementById(texts[currentIndex].id);
-            currentText.classList.remove('active');
+        // Wait for DOM
+        document.addEventListener('DOMContentLoaded', () => {
             
-            // Move to next text
-            currentIndex = (currentIndex + 1) % texts.length;
+            // ========== Rotating Statements ==========
+            const statements = document.querySelectorAll('.hero-statement');
+            let currentStatementIndex = 0;
+            const statementInterval = 4000; // 4 seconds
             
-            // Show next text
-            const nextText = document.getElementById(texts[currentIndex].id);
-            nextText.classList.add('active');
-        }
-        
-        // Start the rotation after initial delay
-        setTimeout(() => {
-            setInterval(showNextText, texts[0].delay);
-        }, texts[0].delay);
-        
-        // Contact Modal Functionality
-        const companyLink = document.getElementById('company-link');
-        const contactModalOverlay = document.getElementById('contact-modal-overlay');
-        const closeModal = document.getElementById('close-modal');
-        const contactForm = document.getElementById('contact-form');
-        
-        // Open modal when COMPANY is clicked
-        companyLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            contactModalOverlay.classList.add('active');
-            document.body.classList.add('modal-open');
-        });
-        
-        // Close modal when X is clicked
-        closeModal.addEventListener('click', () => {
-            contactModalOverlay.classList.remove('active');
-            document.body.classList.remove('modal-open');
-        });
-        
-        // Close modal when clicking outside the form
-        contactModalOverlay.addEventListener('click', (e) => {
-            if (e.target === contactModalOverlay) {
-                contactModalOverlay.classList.remove('active');
-                document.body.classList.remove('modal-open');
-            }
-        });
-        
-        // Initialize EmailJS
-        (function(){
-            emailjs.init("jMoAcPJdoXp2RN656");
-        })();
-        
-        // Handle form submission
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = {
-                firstName: document.getElementById('firstName').value.trim(),
-                lastName: document.getElementById('lastName').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                subject: document.getElementById('subject').value.trim(),
-                message: document.getElementById('message').value.trim()
-            };
-            
-            // Validate form data
-            if (!formData.firstName || !formData.lastName || !formData.email || !formData.subject || !formData.message) {
-                alert('Please fill in all required fields.');
-                return;
+            function rotateStatements() {
+                statements[currentStatementIndex].classList.remove('active');
+                currentStatementIndex = (currentStatementIndex + 1) % statements.length;
+                statements[currentStatementIndex].classList.add('active');
             }
             
-            // Prepare email parameters
-            const emailParams = {
-                from_name: `${formData.firstName} ${formData.lastName}`,
-                from_email: formData.email,
-                subject: formData.subject,
-                message: formData.message,
-                reply_to: formData.email
-            };
+            setInterval(rotateStatements, statementInterval);
             
-            console.log('Sending email with params:', emailParams);
-            console.log('Service ID: service_y3e7g69');
-            console.log('Notification Template ID: template_erq64ic');
-            console.log('Auto-Reply Template ID: template_xa5uen5');
-            console.log('Full emailParams:', JSON.stringify(emailParams, null, 2));
+            // ========== Mobile Navigation Toggle ==========
+            const navToggle = document.getElementById('nav-toggle');
+            const navLinks = document.getElementById('nav-links');
             
-            // Send notification email to you (form data)
-            emailjs.send(
-                'service_y3e7g69',
-                'template_erq64ic',
-                emailParams
-            )
-            .then((response) => {
-                console.log('✅ Notification email sent successfully!');
-                console.log('Response status:', response.status);
-                console.log('Response text:', response.text);
-                
-                // Send auto-reply to form submitter (confirmation message)
-                console.log('Sending auto-reply to:', emailParams.from_email);
-                console.log('Auto-reply params:', {
-                    to_email: emailParams.from_email,
-                    from_name: emailParams.from_name,
-                    from_email: emailParams.from_email
+            navToggle.addEventListener('click', () => {
+                const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+                navToggle.setAttribute('aria-expanded', !isExpanded);
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close mobile nav on link click
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    navToggle.setAttribute('aria-expanded', 'false');
                 });
+            });
+            
+            // ========== Fullscreen Mode ==========
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            
+            fullscreenBtn.addEventListener('click', async () => {
+                try {
+                    if (!document.fullscreenElement) {
+                        await document.documentElement.requestFullscreen();
+                        fullscreenBtn.textContent = 'Exit';
+                    } else {
+                        await document.exitFullscreen();
+                        fullscreenBtn.textContent = 'Immersive';
+                    }
+                } catch (err) {
+                    console.log('Fullscreen not supported:', err);
+                }
+            });
+            
+            document.addEventListener('fullscreenchange', () => {
+                fullscreenBtn.textContent = document.fullscreenElement ? 'Exit' : 'Immersive';
+            });
+            
+            // ========== Scroll Animations (Intersection Observer) ==========
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -10% 0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Optionally unobserve after animation
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            animatedElements.forEach(el => observer.observe(el));
+            
+            // ========== Smooth Scroll for Navigation ==========
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(anchor.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // ========== EmailJS Form Submission ==========
+            // Initialize EmailJS
+            emailjs.init("jMoAcPJdoXp2RN656");
+            
+            const contactForm = document.getElementById('contact-form');
+            
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
                 
-                return emailjs.send(
-                    'service_y3e7g69',
-                    'template_xa5uen5',
-                    {
-                        to_email: emailParams.from_email, // Explicitly set recipient
+                const submitBtn = contactForm.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                
+                // Get form data
+                const formData = {
+                    firstName: document.getElementById('firstName').value.trim(),
+                    lastName: document.getElementById('lastName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    subject: document.getElementById('subject').value.trim(),
+                    message: document.getElementById('message').value.trim()
+                };
+                
+                // Validate
+                if (!formData.firstName || !formData.lastName || !formData.email || !formData.subject || !formData.message) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // Update button state
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                // Prepare email parameters
+                const emailParams = {
+                    from_name: `${formData.firstName} ${formData.lastName}`,
+                    from_email: formData.email,
+                    subject: formData.subject,
+                    message: formData.message,
+                    reply_to: formData.email
+                };
+                
+                try {
+                    // Send notification email
+                    await emailjs.send('service_y3e7g69', 'template_erq64ic', emailParams);
+                    
+                    // Send auto-reply
+                    await emailjs.send('service_y3e7g69', 'template_xa5uen5', {
+                        to_email: emailParams.from_email,
                         from_name: emailParams.from_name,
                         from_email: emailParams.from_email
-                    }
-                );
-            })
-            .then((response) => {
-                console.log('✅ Auto-reply email sent successfully!');
-                console.log('Response status:', response.status);
-                console.log('Response text:', response.text);
-                console.log('Check EmailJS dashboard logs: https://dashboard.emailjs.com/admin/log');
-                
-                alert('Thank you for your message! We\'ll get back to you soon.');
-                contactForm.reset();
-                contactModalOverlay.classList.remove('active');
-                document.body.classList.remove('modal-open');
-            })
-            .catch((error) => {
-                console.error('❌ Email sending failed!');
-                console.error('Full error object:', error);
-                console.error('Error status:', error.status);
-                console.error('Error text:', error.text);
-                console.error('Error message:', error.message);
-                console.error('Service ID used: service_y3e7g69');
-                console.error('Notification Template ID: template_erq64ic');
-                console.error('Auto-Reply Template ID: template_xa5uen5');
-                console.error('Parameters sent:', JSON.stringify(emailParams, null, 2));
-                
-                let errorMessage = 'Sorry, there was an error sending your message.\n\n';
-                if (error.status) {
-                    errorMessage += `Error Code: ${error.status}\n`;
+                    });
+                    
+                    // Success
+                    alert('Thank you for your message! We\'ll get back to you soon.');
+                    contactForm.reset();
+                    
+                } catch (error) {
+                    console.error('Email error:', error);
+                    alert('Sorry, there was an error sending your message. Please try again.');
+                } finally {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
                 }
-                if (error.text) {
-                    errorMessage += `Error: ${error.text}\n\n`;
-                } else if (error.message) {
-                    errorMessage += `Error: ${error.message}\n\n`;
-                }
-                errorMessage += 'Please check:\n';
-                errorMessage += '1. Browser console (F12) for detailed error\n';
-                errorMessage += '2. EmailJS dashboard logs\n';
-                errorMessage += '3. Template ID: template_erq64ic\n';
-                errorMessage += '4. Service ID: service_y3e7g69';
-                
-                alert(errorMessage);
-            })
-            .catch((error) => {
-                console.error('Email sending failed:', error);
-                console.error('Full error object:', JSON.stringify(error, null, 2));
-                console.error('Error details:', {
-                    status: error.status,
-                    text: error.text,
-                    service: 'service_y3e7g69',
-                    template: 'template_erq64ic',
-                    formData: formData
-                });
-                
-                // Show more detailed error message
-                let errorMessage = 'Sorry, there was an error sending your message.\n\n';
-                if (error.status) {
-                    errorMessage += `Error Code: ${error.status}\n`;
-                }
-                if (error.text) {
-                    errorMessage += `Error: ${error.text}\n\n`;
-                } else if (error.message) {
-                    errorMessage += `Error: ${error.message}\n\n`;
-                }
-                errorMessage += 'Please check:\n';
-                errorMessage += '1. Template ID is correct: template_erq64ic\n';
-                errorMessage += '2. Service ID is correct: service_y3e7g69\n';
-                errorMessage += '3. Template variables match\n';
-                errorMessage += '4. Browser console (F12) for more details';
-                
-                alert(errorMessage);
             });
-        });
-        
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && contactModalOverlay.classList.contains('active')) {
-                contactModalOverlay.classList.remove('active');
-                document.body.classList.remove('modal-open');
+            
+            // ========== Keyboard Accessibility ==========
+            document.addEventListener('keydown', (e) => {
+                // Escape to exit fullscreen
+                if (e.key === 'Escape' && document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            });
+            
+            // ========== Performance: Pause video when not visible ==========
+            const heroVideo = document.querySelector('.hero-video');
+            
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        heroVideo.play();
+                    } else {
+                        heroVideo.pause();
+                    }
+                });
+            }, { threshold: 0.25 });
+            
+            if (heroVideo) {
+                videoObserver.observe(heroVideo);
             }
+            
+            // ========== Nav Background on Scroll ==========
+            const nav = document.querySelector('.nav');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    nav.style.background = 'rgba(10, 10, 26, 0.95)';
+                } else {
+                    nav.style.background = 'linear-gradient(to bottom, rgba(10, 10, 26, 0.95) 0%, transparent 100%)';
+                }
+            }, { passive: true });
+            
         });
     </script>
 </body>
