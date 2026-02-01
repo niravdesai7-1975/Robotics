@@ -1,0 +1,11 @@
+# robots.txt for XMachina Labs
+# https://www.xmachinalabs.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.xmachinalabs.com/sitemap.xml
+
+# Crawl delay (optional, be nice to servers)
+Crawl-delay: 10
