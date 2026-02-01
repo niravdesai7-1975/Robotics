@@ -417,7 +417,7 @@
             animation: fadeInUp 1s ease forwards 0.7s;
         }
 
-        /* Rotating Statements - Bottom Center (Original Style) */
+        /* Rotating Statements - Bottom Center (Subtle Style) */
         .hero-statements {
             position: absolute;
             bottom: 100px;
@@ -427,7 +427,7 @@
             z-index: 10;
             width: 90%;
             max-width: 1200px;
-            min-height: 80px;
+            min-height: 50px;
         }
 
         .hero-statement {
@@ -435,11 +435,12 @@
             width: 100%;
             left: 0;
             font-family: 'Inter', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
-            line-height: 1.2;
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            font-size: 1.25rem;
+            font-weight: 300;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.85);
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+            letter-spacing: 0.02em;
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
         }
@@ -454,17 +455,17 @@
             }
             
             .hero-statement {
-                font-size: 2rem;
+                font-size: 1.1rem;
             }
         }
 
         @media (max-width: 480px) {
             .hero-statements {
-                bottom: 160px;
+                bottom: 140px;
             }
             
             .hero-statement {
-                font-size: 1.5rem;
+                font-size: 1rem;
             }
         }
 
